@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+    <title>Landing</title>
+
+</head>
+
+<body>
+    <div class="header">
+        <a href="/guesswho">
+            <img src="/img/backb.png" alt="" height="80px">
+        </a>
+
+    </div>
+
+
+    <div class="container home-container">
+        <h2 style="margin-top: 10rem;">Score: <%=score%>/<%=all_questions.length%></h2>
+       
+        <h3 class="home-head home-head-bottom">Guess who?</h3>
+
+        <%let i=0%>
+
+        
+            <%for(var question of all_questions){%>
+
+            <img id="relpic" src="data:image/<%=question.photo.contentType%>;base64, 
+                     <%=question.photo.data.toString('base64')%>">
+
+            <h3 class="home-head">Options</h3>
+
+            <p class="options">
+                1) <%=question.options[0]%>
+            </p>
+
+            <p class="options">
+                2) <%=question.options[1]%>
+            </p>
+
+            
+
+
+            <%if(boolarr[i]===true){%>
+            <h3 class="home-head">Your answer: <span class="green"><%=myanswer[i]%> </span></h3>
+            <h3 class="home-head">You answered correctly!</h3>
+
+            <%}else{%>
+            <h3 class="home-head">Your answer: <span class="crimson"><%=myanswer[i]%> </span></h3>
+            <h3 class="home-head">You did not answer correctly...Keep trying! </h3>
+
+            <p>The correct answer is <%=correctansarr[i]%></p>
+            
+
+            <%}%>
+            <div class="hr-small"></div>
+        <%i+=1%>
+            <%}%>
+
+
+
+
+    </div>
+</body>
+
+</html>

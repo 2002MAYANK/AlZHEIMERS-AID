@@ -1,0 +1,82 @@
+
+
+
+<!DOCTYPE HTML>
+<html>
+<head>  
+	<link rel="stylesheet" href="/stylesheets/app.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+    
+<script>
+window.onload = function () {
+    var dataPoints = '<%- JSON.stringify(lastScores) %>';
+    var dataPointsSage = '<%- JSON.stringify(lastScoresSage) %>';
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Your progress in the last 10 guess who quizzes"
+	},
+	data: [{        
+		type: "line",
+      	indexLabelFontSize: 16,
+		dataPoints: JSON.parse(dataPoints)
+	}]
+});
+
+var chartSage = new CanvasJS.Chart("chartContainerSage", {
+	animationEnabled: true,
+	theme: "light2",
+	title:{
+		text: "Your progress in the last 10 sage tests"
+	},
+	data: [{        
+		type: "line",
+      	indexLabelFontSize: 16,
+		dataPoints: JSON.parse(dataPointsSage)
+	}]
+});
+chart.render();
+chartSage.render();
+
+}
+</script>
+</head>
+<body>
+	<div class="header">
+        <a href="/home">
+            <img src="/img/backb.png" alt="" height="100">
+        </a>
+    </div>
+	<div class="container">
+    
+	<div></div>
+	<div></div>
+	<div><br><br><br><br><br></div>
+    <h3 class="home-head"><strong>Welcome <%= CurrentUser.name %></strong> </h3>
+	<h3 class="home-head2">Your last guess who score was: <%= CurrentUser.scores[CurrentUser.scores.length - 1] %> </h3>
+	<h3 class="home-head2">Your last sage score was: <%= CurrentUser.sageScores[CurrentUser.sageScores.length - 1] %> </h3>
+	<h3 class="home-head2">Your highest guess who score: <%= Math.max(...CurrentUser.scores) %> </h3>
+	<h3 class="home-head2">Your highest SAGE score: <%= Math.max(...CurrentUser.sageScores) %> </h3>
+	<p></p>
+	<div class="emptyup"></div>
+	<div><br><br><br><br></div>
+<div id="chartContainer" style="height: 500px; width: 100%;"><br><br></div>
+
+
+<div id="chartContainerSage" style="height: 500px; width: 100%;"></div>
+
+<div><br><br><p><strong><%= message  %></strong></p></div>
+
+<br><br>
+
+</div>
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+</body>
+</html>

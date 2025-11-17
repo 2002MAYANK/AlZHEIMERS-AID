@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/stylesheets/app.css">
+
+
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <!--Fonts-->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+  <!--Font Awesome-->
+  <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+  <title>Landing</title>
+
+</head>
+
+<body>
+  <div class="header">
+    <a href="/home">
+      <img src="/img/backb.png" alt="" height="80px">
+    </a>
+
+  </div>
+
+
+  <div class="container">
+    <h2 style="margin-top: 5rem;">Guess who?</h2>
+    <%var i=0%>
+
+
+    <form action="/guesswho/checkanswer" method="POST" id="guesswhoform">
+      <%for(var question of all_questions){%>
+
+      <%i+=1%>
+      <div class="quiz">
+        <img id="relpic" src="data:image/<%=question.photo.contentType%>;base64, 
+           <%=question.photo.data.toString('base64')%>">
+        <div class="form-row align-items-center">
+          <div class="custom-control custom-radio">
+            <input type="radio" id=<%="customRadio"+i%> name=<%="Choice"+i%> class="custom-control-input"
+              value="<%=question.options[0]%>">
+            <label class="custom-control-label" for=<%="customRadio"+i%>><%=question.options[0]%></label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" id="customRadio1" name=<%="Choice" + i %> class="custom-control-input"
+              value="<%=question.options[1]%>">
+            <label class="custom-control-label" for="customRadio1"><%=question.options[1]%></label>
+          </div>
+
+
+
+        </div>
+      </div>
+      <%}%>
+
+        <button type="submit" class="purp-btn">Submit</button>
+     
+      
+    </form>
+</div>
+  
+
+</body>
+
+</html>
+
+
+
+
+
+
+    

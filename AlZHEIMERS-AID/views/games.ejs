@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+    <title>Landing</title>
+
+</head>
+
+<body>
+    <div class="header">
+        <a href="/home">
+            <img src="/img/backb.png" alt="" height="80px">
+        </a>
+    </div>
+    <div class="container ">
+        
+        <h2 class="home-head" style="margin-top: 5rem;">Which game would you like to play?</h2>
+        <a href="/memorygame" class="purp-btn">Memory Cards</a>
+        <a href="/guesswho" class="purp-btn">Guess Who</a>
+        <a href="/games/SAGE" class="purp-btn">TEST</a>
+        <a href="/tictac" class="purp-btn">tictac</a>
+        <div id="reminders">
+            <h2 class="home-head">Reminders</h2>
+            <p><%= msg %></p>
+            <table>
+                <tr>
+                    <th>
+                        Time
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            <% for(var i=0; i<myreminders.length; i++){ %>
+                <tr>
+                    <td>  <%= myreminders[i].time %></td>
+                    <td> <%= myreminders[i].tag %></td>
+                </tr>
+                <%}%>           
+            </table>
+      </div>
+    </div>   
+</body>
+
+

@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="/stylesheets/app.css">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<!--Fonts-->
+	<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+	<!--Font Awesome-->
+	<script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+	<title>Landing</title>
+
+</head>
+
+<body>
+	<div class="header">
+		<a href="/events">
+			<img src="/img/backb.png" alt="" height="80px">
+		</a>
+	</div>
+
+
+	<div class="container">
+
+		<%if(error && error.length>0){%>
+            <div class="alert alert-danger" role="alert">
+                  <%=error%>
+            </div>
+		<%}%>
+		
+        <%if(success && success.length>0){%>
+            <div class="alert alert-success" role="alert">
+                  <%=success%>
+            </div>
+		<%}%>
+
+		<h2>Add reminder </h2>
+
+
+		<form action="/eventsadd" method="post">
+
+			<h3 class="home-head home-head-bottom">Select days</h3>
+			<div class="form-row align-items-center">
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="0" name="0" value="0" class="custom-control-input">
+					<label for="days"> Sunday</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="1" name="1" value="1" class="custom-control-input">
+					<label for="days"> Monday</label>
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="2" name="2" value="2" class="custom-control-input">
+					<label for="days"> Tuesday</label>
+	
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="3" name="3" value="3" class="custom-control-input">
+					<label for="days"> Wednesday</label>
+	
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="4" name="4" value="4" class="custom-control-input">
+					<label for="days"> Thursday</label>
+	
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="5" name="5" value="5" class="custom-control-input">
+					<label for="days"> Friday</label>
+	
+				</div>
+				<div class="custom-control custom-radio">
+					<input type="checkbox" id="6" name="6" value="6" class="custom-control-input">
+					<label for="days"> Saturday</label>
+				</div>
+	
+			</div>
+				
+
+			<input type="time" id="time" name="time" class="form-control" placeholder="time">
+			<input type="text" id="tag" name="tag" class="form-control" placeholder="Message">
+			<button type="submit" class="purp-btn">Submit</button>
+		</form>
+
+
+
+
+
+	</div>
+</body>
+
+</html>
+

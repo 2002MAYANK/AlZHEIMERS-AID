@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+    
+    <title>Landing</title>
+
+</head>
+
+<body>
+    <div class="header">
+        <a href="/home">
+            <img src="/img/backb.png" alt="" height="80">
+        </a>
+    </div>
+    <div class="container">
+        <div class="quiz">
+         <div class="emptytop"></div>
+        <form action="/games/SAGE" method ="POST">
+            <% for(i=1;i<=6;i++) {%>
+               <span style="font-weight: bold;"> Q) <%=testData[`Q${i}`].question%></span>
+                <p></p>
+                <p></p>
+                <%testData[`Q${i}`].options.forEach(item=>{%>
+                    
+                    <input type = "radio"  id = <%=item + i%>  name="<%='answer'+i%>" value=<%=item%> class="custom-control-input">
+                    <label class="SageLabel"  ><%=item%></label>
+                    <p></p>
+                <%})%>
+                 
+                <p></p>
+                <p></p>
+            <%}%>
+            <p></p>
+            <div class="emptydown"></div>
+            <button type="submit" class="purp-btn">Submit</button>
+            
+    </form>
+    </div>
+      </div>
+    </div>   
+</body>
+
+

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/stylesheets/app.css">
+
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    <!--Font Awesome-->
+    <script src="https://kit.fontawesome.com/3808de5cb1.js" crossorigin="anonymous"></script>
+
+    <title>Landing</title>
+
+</head>
+<!-- css for the timer -->
+<style>
+
+.timer {
+  font-family: sans-serif;
+  display: block;
+  padding: 24px 32px;
+  height: 230px;
+  width: 100%;
+  border-radius: 30px;
+  border-radius: 50px;
+background: #e0e0e0;
+box-shadow:  20px 20px 60px #bebebe,
+             -20px -20px 60px #ffffff;
+}
+
+.timer__part {
+  font-size: 100px;
+  font-weight: bold;
+}
+
+.timer__btn {
+  width: 50px;
+  height: 50px;
+  margin-left: 16px;
+  border-radius: 50%;
+  border: none;
+  color: white;
+  background: #8208e6;
+  cursor: pointer;
+}
+
+.timer__btn--start {
+  background: #00b84c;
+}
+
+.timer__btn--stop {
+  background: #ff0256;
+}
+
+
+button{
+    border:none;
+    outline: none;
+    cursor: pointer;
+}
+
+
+
+section{
+    max-width: 1100px;
+    margin: auto;
+    text-align: center;
+    padding: 0 1rem;
+}
+h1{
+    font-size: 3rem;
+    margin-bottom: 2rem;
+}
+
+
+p{
+    font-size: 2rem;
+}
+
+
+.chat-btn{
+    position: fixed;
+    right:50px;
+    bottom: 50px;
+    background: dodgerblue;
+    color: white;
+    width:110px;
+    height: 110px;
+    border-radius: 50%;
+    opacity: 0.8;
+    transition: opacity 0.3s;
+    box-shadow: 0 5px 5px rgba(0,0,0,0.4);
+}
+
+.chat-btn:hover, .submit:hover, #emoji-btn:hover{
+    opacity: 1;
+}
+
+.chat-popup{
+    display: none;
+    position: fixed;
+    bottom:80px;
+    right:120px;
+    height: 600px;
+    width: 400px;
+    background-color: white;
+    /* display: flex; */
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0.75rem;
+    box-shadow: 5px 5px 5px rgba(0,0,0,0.4);
+    border-radius: 10px;
+}
+
+.show{
+    display: flex;
+}
+
+.chat-area{
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.income-msg{
+    display: flex;
+    align-items: center;
+}
+
+.avatar{
+    width:45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.income-msg .msg{
+    background-color: dodgerblue;
+    color: white;
+    padding:0.5rem;
+    border-radius: 25px;
+    margin-left: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+}
+
+.badge{
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background-color: red;
+    color:white;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top:-10px;
+    right: -10px;
+}
+
+.input-area{
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+input[type="text"]{
+    width:100%;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+    border-radius: 5px;
+    height: 2.2rem;
+}
+
+#emoji-btn{
+    position: absolute;
+    font-size: 1.2rem;
+    background: transparent;
+    right: 50px;
+    top:2px;
+    opacity:0.5;
+}
+
+.submit{
+    padding: 0.25rem 0.5rem;
+    margin-left: 0.5rem;
+    background-color: green;
+    color:white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    opacity: 0.7;
+}
+
+
+.out-msg{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.my-msg{
+    display: flex;
+    justify-content: flex-end;
+    margin: 0.75rem;
+    padding: 0.5rem;
+    background-color: #ddd;
+    border-radius: 25px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.4);
+    word-break: break-all;
+}
+
+
+@media (max-width:500px){
+
+    .chat-popup{
+        bottom: 120px;
+        right:10%;
+        width: 80vw;
+    }
+}
+</style>
+
+<body>
+
+
+    <div class="container homepage">
+
+        <%if(CurrentUser.DP.data){%>
+
+        <img id="user-dp" src="data:image/<%=CurrentUser.DP.contentType%>;base64, 
+                         <%=CurrentUser.DP.data.toString('base64')%>">
+        <%}%>
+        <h2 class="home-head">Welcome <%=CurrentUser.name %></h2>
+
+        <div class="grid-container">
+            <a href="/news" class="home-box">
+                <img src="img/news.png" alt="">
+                <h3>News</h3>
+            </a>
+            <a href="/games" class="home-box">
+                <img src="img/games.png" alt="">
+                <h3>Games</h3>
+            </a>
+            <a class="home-box" href="/circle">
+                <img src="img/circle.png" alt="">
+                <h3>Circle</h3>
+            </a>
+            <a class="home-box" href="/video">
+                <img src="img/identify.png" alt="">
+                <h3>Identify</h3>
+            </a>
+            <a href="/events" class="home-box">
+                <img src="img/reminder.png" alt="">
+                <h3>Reminders</h3>
+            </a>
+            <a href="/entertainment" class="home-box">
+                <img src="img/entertainment.png" alt="">
+                <h3>Entertain</h3>
+            </a>
+            <a href="/maps" class="home-box">
+                <img src="img/entertainment.png" alt="">
+                <h3>Maps</h3>
+            </a>
+        
+            <a href="/dashboard" class="home-box" >
+                <img src="img/dashboard.png" width="96" height="96" alt="">
+                <h3>Dashboard</h3>
+            </a>
+
+               <!-- <a href="/timer" class="home-box" >
+                    <img src="img/dashboard.png" width="96" height="96" alt="">
+                    <h3>Dashboard</h3>-->
+                    
+                        <div class="timer"> 
+                            
+                        </div>
+                        
+                        <script>
+                      
+                      class Timer {
+                        constructor(root) {
+                          root.innerHTML = Timer.getHTML();
+                      
+                          this.el = {
+                            minutes: root.querySelector(".timer__part--minutes"),
+                            seconds: root.querySelector(".timer__part--seconds"),
+                            control: root.querySelector(".timer__btn--control"),
+                            reset: root.querySelector(".timer__btn--reset")
+                          };
+                      
+                          this.interval = null;
+                          this.remainingSeconds = 0;
+                      
+                          this.el.control.addEventListener("click", () => {
+                            if (this.interval === null) {
+                              this.start();
+                            } else {
+                              this.stop();
+                            }
+                          });
+                      
+                          this.el.reset.addEventListener("click", () => {
+                            const inputMinutes = prompt("Enter number of minutes:");
+                      
+                            if (inputMinutes < 60) {
+                              this.stop();
+                              this.remainingSeconds = inputMinutes * 60;
+                              this.updateInterfaceTime();
+                            }
+                          });
+                        }
+                      
+                        updateInterfaceTime() {
+                          const minutes = Math.floor(this.remainingSeconds / 60);
+                          const seconds = this.remainingSeconds % 60;
+                      
+                          this.el.minutes.textContent = minutes.toString().padStart(2, "0");
+                          this.el.seconds.textContent = seconds.toString().padStart(2, "0");
+                        }
+                      
+                        updateInterfaceControls() {
+                          if (this.interval === null) {
+                            this.el.control.innerHTML = `<span class="material-icons">play_arrow</span>`;
+                            this.el.control.classList.add("timer__btn--start");
+                            this.el.control.classList.remove("timer__btn--stop");
+                          } else {
+                            this.el.control.innerHTML = `<span class="material-icons">pause</span>`;
+                            this.el.control.classList.add("timer__btn--stop");
+                            this.el.control.classList.remove("timer__btn--start");
+                          }
+                        }
+                      
+                        start() {
+                          if (this.remainingSeconds === 0) return;
+                      
+                          this.interval = setInterval(() => {
+                            this.remainingSeconds--;
+                            this.updateInterfaceTime();
+                      
+                            if (this.remainingSeconds === 0) {
+                              this.stop();
+                            }
+                          }, 1000);
+                      
+                          this.updateInterfaceControls();
+                        }
+                      
+                        stop() {
+                          clearInterval(this.interval);
+                      
+                          this.interval = null;
+                      
+                          this.updateInterfaceControls();
+                        }
+                      
+                        static getHTML() {
+                          return `
+                                  <span class="timer__part timer__part--minutes">00</span>
+                                  <span class="timer__part">:</span>
+                                  <span class="timer__part timer__part--seconds">00</span>
+                                  <button type="button" class="timer__btn timer__btn--control timer__btn--start">
+                                      <span class="material-icons">play_arrow</span>
+                                  </button>
+                                  <button type="button" class="timer__btn timer__btn--reset">
+                                      <span class="material-icons">timer</span>
+                                  </button>
+                              `;
+                        }
+                      }
+                      
+                      new Timer(
+                          document.querySelector(".timer")
+                      );
+                        </script>
+                    
+                </a>
+
+            
+        </div>
+        
+        
+
+        <div id="reminders">
+            <h2 class="home-head">Reminders</h2>
+            <p><%= msg %></p>
+            <table>
+                <tr>
+                    <th>
+                        Time
+                    </th>
+                    <th>
+                        Message
+                    </th>
+                </tr>
+            <% for(var i=0; i<myreminders.length; i++){ %>
+                <tr>
+                    <td>  <%= myreminders[i].time %></td>
+                    <td> <%= myreminders[i].tag %></td>
+                </tr>
+               
+    
+               
+    
+    
+                <%}%>
+                
+            </table>
+
+            <section>
+                <h1>Chat Popup</h1>
+                <p>Click on the chat button to start chatting</p>
+        
+                <button class="chat-btn"> 
+                    <i class="material-icons"> NOTES </i>
+                </button>
+        
+                <div class="chat-popup">
+                    <div class="badge">1</div>
+                    <div class="chat-area">
+                     <div class="income-msg">
+                        
+                         <span class="msg"> Start Writing Your Important Notes</span>
+                     </div>   
+                    </div>
+        
+                    <div class="input-area">
+                        <input type="text">
+                        <button id="emoji-btn"> &#127773;</button>
+                        <button class="submit"> <i class="material-icons"> send</i></button>
+                    </div>
+                </div>
+            </section>
+        
+        
+            <script src="https://cdn.jsdelivr.net/npm/@joeattardi/emoji-button@3.1.1/dist/index.min.js"></script>
+            <script>const popup = document.querySelector('.chat-popup');
+        const chatBtn = document.querySelector('.chat-btn');
+        const submitBtn = document.querySelector('.submit');
+        const chatArea = document.querySelector('.chat-area');
+        const inputElm = document.querySelector('input');
+        const emojiBtn = document.querySelector('#emoji-btn');
+        const picker = new EmojiButton();
+        
+        
+        // Emoji selection  
+        window.addEventListener('DOMContentLoaded', () => {
+        
+            picker.on('emoji', emoji => {
+              document.querySelector('input').value += emoji;
+            });
+          
+            emojiBtn.addEventListener('click', () => {
+              picker.togglePicker(emojiBtn);
+            });
+          });        
+        
+        //   chat button toggler 
+        
+        chatBtn.addEventListener('click', ()=>{
+            popup.classList.toggle('show');
+        })
+        
+        // send msg 
+        submitBtn.addEventListener('click', ()=>{
+            let userInput = inputElm.value;
+        
+            let temp = `<div class="out-msg">
+            <span class="my-msg">${userInput}</span>
+            <img src="img/me.jpg" class="avatar">
+            </div>`;
+        
+            chatArea.insertAdjacentHTML("beforeend", temp);
+            inputElm.value = '';
+        
+        })</script>
+        
+
+           
+            
+            
+
+        </div>
+        <a href="/logout" class="purp-btn" id="guesswhoform">Logout</a>
+    
+
+	</div>
+	<script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+	<script src="js/register.js"></script>
+
+</body>
