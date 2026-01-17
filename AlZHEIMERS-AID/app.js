@@ -12,7 +12,7 @@ var User = require("./models/user"),
   path = require("path");
 var multer = require("multer");
 const uri =
-  "mongodb+srv://vishaka:Vishaka@cluster0.u0mor.mongodb.net/alzheimers?retryWrites=true&w=majority";
+  "mongodb+srv://vishaka:Vishaka@cluster0.u0mor.mongodb.net/alzheimers?retryWrites=true&w=majority"|| process.env.DATABASEURL;
 //const uri = process.env.DATABASEURL;
 var storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -137,7 +137,10 @@ const getSAGEScore = (answers, test) => {
 app.use(express("public"));
 app.set("view engine", "ejs");
 app.use(flash());
-mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+//mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+mongoose.connect(uri)
+  .then(() => console.log("MongoDB connected"))
+  .catch(err => console.log(err));
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, "public")));
